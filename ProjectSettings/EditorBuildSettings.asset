@@ -14,6 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Escenas/Juego.unity
     guid: 072eb62f698a45740b71afd8a277782c
+  - enabled: 1
+    path: Assets/Escenas/Niveles.unity
+    guid: 5daab8cfd8f721246bbed0ae619dc4c6
+  - enabled: 1
+    path: Assets/Escenas/ajua.unity
+    guid: 8032e5587d7c23947aca2c0bf3cfa134
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 35845fe01580c41289b024647b1d1c53, type: 3}
   m_UseUCBPForAssetBundles: 0

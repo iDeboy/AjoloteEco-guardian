@@ -7,10 +7,14 @@ public class MainMenu : MonoBehaviour
 {
     public void StartGame()
     {
-        // Cambia "NombreEscenaJuego" por el nombre de tu escena del juego
-        SceneManager.LoadScene("Juego");
+        
+        SceneManager.LoadScene("Niveles");
     }
-
+    public void Nivel1()
+    {
+        
+        SceneManager.LoadScene("ajua");
+    }
     public void OpenOptions()
     {
         // Lógica para abrir el menú de opciones
