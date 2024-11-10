@@ -6,6 +6,8 @@ public class Movimiento : MonoBehaviour {
     [SerializeField]
     private float moveSpeed = 10f;
     [SerializeField]
+    private float boostedSpeed = 30f; // Velocidad aumentada
+    [SerializeField]
     private float mouseSensitivity = 100f;
     [SerializeField]
     private float verticalSpeed = 3f;
@@ -20,7 +22,6 @@ public class Movimiento : MonoBehaviour {
     void Update() {
 
         MoverCamara();
-
         RotarCamara();
 
     }
@@ -28,6 +29,9 @@ public class Movimiento : MonoBehaviour {
     private void MoverCamara() {
 
         Vector3 moveDirection = Vector3.zero;
+
+        // Ajustar la velocidad seg√∫n si se presiona la tecla Q
+        float currentSpeed = Input.GetKey(KeyCode.Q) ? boostedSpeed : moveSpeed;
 
         // Movimiento en el eje horizontal (izquierda y derecha)
         if (Input.GetKey(KeyCode.A)) {
@@ -37,7 +41,7 @@ public class Movimiento : MonoBehaviour {
             moveDirection += transform.right;
         }
 
-        // Movimiento en el eje vertical (adelante y atr·s)
+        // Movimiento en el eje vertical (adelante y atr√°s)
         if (Input.GetKey(KeyCode.W)) {
             moveDirection += transform.forward;
         }
@@ -45,7 +49,7 @@ public class Movimiento : MonoBehaviour {
             moveDirection -= transform.forward;
         }
 
-        // Movimiento en el eje de elevaciÛn (espacio para subir, shift para bajar)
+        // Movimiento en el eje de elevaci√≥n (espacio para subir, shift para bajar)
         if (Input.GetKey(KeyCode.Space)) {
             moveDirection += Vector3.up;
         }
@@ -53,8 +57,8 @@ public class Movimiento : MonoBehaviour {
             moveDirection += Vector3.down;
         }
 
-        // Aplicar el movimiento usando la velocidad y el tiempo
-        transform.position += moveSpeed * Time.deltaTime * moveDirection.normalized;
+        // Aplicar el movimiento usando la velocidad actual y el tiempo
+        transform.position += currentSpeed * Time.deltaTime * moveDirection.normalized;
     }
 
     private void RotarCamara() {
@@ -64,7 +68,6 @@ public class Movimiento : MonoBehaviour {
 
         transform.Rotate(Vector3.up * mouseX, Space.World);
         transform.Rotate(Vector3.right * -Mathf.Clamp(mouseY, -90f, 90f));
-
     }
 
 }
