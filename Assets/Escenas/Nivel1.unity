@@ -1522,6 +1522,53 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf4552dcfa86557429a0a33808fdf025, type: 3}
+--- !u!1 &1407908345
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1407908347}
+  - component: {fileID: 1407908346}
+  m_Layer: 0
+  m_Name: GeneradorObjetos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1407908346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407908345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62660e8b2a60caa4db47f55a3f71955c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Terreno: {fileID: 1489157650}
+  numeroObjetos: 150
+  objetoGenerar: {fileID: 2481267549826285614, guid: d70dde7a137fb15499d88aac6ce72fed, type: 3}
+--- !u!4 &1407908347
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407908345}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 778.4815, y: 36.804646, z: 591.4036}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1489157648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1878,3 +1925,4 @@ SceneRoots:
   - {fileID: 1590392115}
   - {fileID: 1317949172}
   - {fileID: 649255152161386472}
+  - {fileID: 1407908347}
