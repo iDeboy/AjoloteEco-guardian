@@ -757,18 +757,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bote Variant 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2844128399300177030, guid: b71fc5e57006e124da0017d669cdfefc, type: 3}
+      propertyPath: m_Size.x
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844128399300177030, guid: b71fc5e57006e124da0017d669cdfefc, type: 3}
+      propertyPath: m_Size.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844128399300177030, guid: b71fc5e57006e124da0017d669cdfefc, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844128399300177030, guid: b71fc5e57006e124da0017d669cdfefc, type: 3}
+      propertyPath: m_Center.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844128399300177030, guid: b71fc5e57006e124da0017d669cdfefc, type: 3}
+      propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844128399300177030, guid: b71fc5e57006e124da0017d669cdfefc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3853386766026303469, guid: b71fc5e57006e124da0017d669cdfefc, type: 3}
       propertyPath: runSpeed
-      value: 30
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3853386766026303469, guid: b71fc5e57006e124da0017d669cdfefc, type: 3}
       propertyPath: walkSpeed
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1120977373942673364, guid: b71fc5e57006e124da0017d669cdfefc, type: 3}
+      insertIndex: 6
+      addedObject: {fileID: 1816280867}
   m_SourcePrefab: {fileID: 100100000, guid: b71fc5e57006e124da0017d669cdfefc, type: 3}
 --- !u!1 &1174526197
 GameObject:
@@ -1414,6 +1441,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Terreno: {fileID: 1489157650}
   numeroObjetos: 150
+  escala: 0.75
   objetoGenerar: {fileID: 2481267549826285614, guid: d70dde7a137fb15499d88aac6ce72fed, type: 3}
 --- !u!4 &1407908347
 Transform:
@@ -1704,11 +1732,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1816280859 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1120977373942673364, guid: b71fc5e57006e124da0017d669cdfefc, type: 3}
+  m_PrefabInstance: {fileID: 1122776164}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1816280866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 343771484032480622, guid: b71fc5e57006e124da0017d669cdfefc, type: 3}
   m_PrefabInstance: {fileID: 1122776164}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1816280867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816280859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30aca6d307836e74eac156d3a9886552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RangoDeteccion: 7
+  TeclaRecoger: 101
+  TiempoRecoger: 2
+  MostrarRango: 1
 --- !u!1001 &649255152161386472
 PrefabInstance:
   m_ObjectHideFlags: 0
