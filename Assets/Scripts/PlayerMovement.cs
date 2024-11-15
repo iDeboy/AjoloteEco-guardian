@@ -57,18 +57,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Rotate()
-    {
-        // Rotación en base a la entrada del mouse
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+void Rotate()
+{
+    // No procesa la rotación si el cursor está desbloqueado (el juego está en pausa)
+    if (Cursor.lockState != CursorLockMode.Locked)
+        return;
 
-        // Rota el objeto jugador en el eje Y para girar a la derecha o izquierda
-        float targetRotationY = playerBody.eulerAngles.y + mouseX;
+    // Rotación en base a la entrada del mouse
+    float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
 
-        // Suaviza la rotación utilizando Slerp
-        Quaternion targetRotation = Quaternion.Euler(0f, targetRotationY, 0f);
-        playerBody.rotation = Quaternion.Slerp(playerBody.rotation, targetRotation, Time.deltaTime * rotationSpeed); // Ajusta rotationSpeed para mayor suavidad
-    }
+    // Rota el objeto jugador en el eje Y para girar a la derecha o izquierda
+    float targetRotationY = playerBody.eulerAngles.y + mouseX;
+
+    // Suaviza la rotación utilizando Slerp
+    Quaternion targetRotation = Quaternion.Euler(0f, targetRotationY, 0f);
+    playerBody.rotation = Quaternion.Slerp(playerBody.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+}
+
 
     private void OnCollisionEnter(Collision collision)
     {

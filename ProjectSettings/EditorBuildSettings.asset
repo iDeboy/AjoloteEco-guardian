@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/OutdoorsScene.unity
     guid: 8124e5870f4fd4c779e7a5f994e84ad1
-  - enabled: 1
+  - enabled: 0
     path: Assets/MenuPrincipal.unity
     guid: bec29d9b347c5d742b12785a004d9f36
   - enabled: 1
@@ -20,6 +20,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Escenas/ajua.unity
     guid: 8032e5587d7c23947aca2c0bf3cfa134
+  - enabled: 1
+    path: Assets/Escenas/Nivel1.unity
+    guid: b2aeeb0e147319d4d85f41ee4bd3d75f
+  - enabled: 1
+    path: Assets/Escenas/Nivel2.unity
+    guid: 92c097d457edd7f44b1b406d699e0f63
+  - enabled: 1
+    path: Assets/Escenas/Inicio.unity
+    guid: c74406f8569bf684a8b96e4e235e6553
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 35845fe01580c41289b024647b1d1c53, type: 3}
   m_UseUCBPForAssetBundles: 0
