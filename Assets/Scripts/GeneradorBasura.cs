@@ -39,7 +39,9 @@ public class GeneradorBasura : MonoBehaviour {
             // Crea el objeto en la posición obtenida
             Vector3 posicionAleatoria = new(x, y, z);
             GameObject objeto = Instantiate(objetoGenerar, posicionAleatoria, Quaternion.identity, Terreno.transform);
-
+            objeto.transform.localScale = Vector3.one * 0.75f;
+            objeto.tag = "Recogible";
+            
             // Opcional: Asegura que el objeto no se mueva
             objeto.isStatic = true;
         }
