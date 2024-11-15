@@ -2,72 +2,41 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform player;                // Referencia al objeto del jugador
-    public Vector3 offset;                  // Offset para la posición inicial de seguimiento de la cámara
-    public Vector3 alternateOffset;         // Offset específico para la posición alternativa al presionar 'R'
-    public float followSpeed = 10f;         // Velocidad de seguimiento de la cámara
-    public float rotationSpeed = 5f;        // Velocidad de rotación de la cámara hacia el jugador
-    public float mouseSensitivity = 100f;   // Sensibilidad del movimiento del mouse
+    public Transform player;                     // Referencia al jugador
+    public Vector3 offset = new Vector3(0, 5, -10); // Offset de la cámara respecto al jugador
+    public float smoothSpeed = 0.125f;           // Velocidad de suavizado de la cámara
+    public float minDistance = 0.5f;             // Distancia mínima permitida desde el jugador
+    public LayerMask collisionLayers;            // Capas que deben considerarse como obstáculos
 
-    private bool inAlternatePosition = false;  // Indica si la cámara está en la posición alternativa
-    private float pitch = 0f;               // Ángulo de rotación en el eje X
-    private float yaw = 0f;                 // Ángulo de rotación en el eje Y
+    private Vector3 defaultOffset;
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        // Inicializa la posición de la cámara en relación al jugador usando el offset
-        transform.position = player.position + offset;
-
-        // Inicializa la rotación de la cámara basándose en su orientación actual
-        Vector3 angles = transform.eulerAngles;
-        pitch = angles.x;
-        yaw = angles.y;
+        defaultOffset = offset;
     }
 
     void LateUpdate()
     {
-        // Cambia la posición de la cámara cuando se presiona 'R'
-        if (Input.GetKeyDown(KeyCode.R))
+        // Calcula la posición deseada aplicando la rotación del jugador al offset
+        Vector3 rotatedOffset = player.rotation * offset;
+        Vector3 desiredPosition = player.position + rotatedOffset;
+
+        // Comprueba si hay algún obstáculo entre el jugador y la cámara
+        RaycastHit hit;
+        if (Physics.Raycast(player.position, rotatedOffset.normalized, out hit, rotatedOffset.magnitude, collisionLayers))
         {
-            inAlternatePosition = !inAlternatePosition;
+            // Ajusta la posición de la cámara para que esté justo antes del obstáculo
+            float adjustedDistance = hit.distance - minDistance;
+            desiredPosition = player.position + rotatedOffset.normalized * Mathf.Max(adjustedDistance, minDistance);
         }
 
-        // Determina el comportamiento según la posición actual
-        if (inAlternatePosition)
-        {
-            FollowPlayer(alternateOffset);
-            RotateWithMouse();
-        }
-        else
-        {
-            FollowPlayer(offset);
-            RotateWithMouse();
-        }
-    }
+        // Suaviza la transición de la cámara para un movimiento fluido
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
 
-    void FollowPlayer(Vector3 currentOffset)
-    {
-        // Define la posición deseada de la cámara en relación al jugador usando el offset actual
-        Vector3 targetPosition = player.position + currentOffset;
-        
-        // Suaviza el movimiento de la cámara hacia la posición objetivo
-        transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
-    }
+        // Actualiza la posición de la cámara
+        transform.position = smoothedPosition;
 
-    void RotateWithMouse()
-    {
-        // Obtener el movimiento del mouse
-        yaw += Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        pitch -= Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-
-        // Limita el ángulo de pitch para evitar que la cámara gire completamente
-        pitch = Mathf.Clamp(pitch, -30f, 60f);  // Ajusta estos valores para limitar el movimiento vertical
-
-        // Aplica la rotación a la cámara
-        Quaternion targetRotation = Quaternion.Euler(pitch, yaw, 0f);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        // La cámara mira siempre hacia el jugador
+        transform.LookAt(player.position + Vector3.up * 1.5f);
     }
 }
