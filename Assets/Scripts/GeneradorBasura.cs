@@ -9,6 +9,9 @@ public class GeneradorBasura : MonoBehaviour {
     private int numeroObjetos = 10;
 
     [SerializeField]
+    private float escala = 0.75f;
+
+    [SerializeField]
     private GameObject objetoGenerar;
 
     private float terrenoXMin;
@@ -39,7 +42,7 @@ public class GeneradorBasura : MonoBehaviour {
             // Crea el objeto en la posición obtenida
             Vector3 posicionAleatoria = new(x, y, z);
             GameObject objeto = Instantiate(objetoGenerar, posicionAleatoria, Quaternion.identity, Terreno.transform);
-            objeto.transform.localScale = Vector3.one * 0.75f;
+            objeto.transform.localScale = Vector3.one * escala;
             objeto.tag = "Recogible";
             
             // Opcional: Asegura que el objeto no se mueva
