@@ -9,6 +9,26 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: PlasticDuck_bag
     second: {fileID: 2100000, guid: a7bfb2d72e9b0ea489233665dc4e9c1c, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PlasticDucksBag_PlasticDuck_bag_BaseColor
+    second: {fileID: 2800000, guid: 49b0b7ff8e29e7e49a02dc5512ea1fe2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PlasticDucksBag_PlasticDuck_bag_Normal
+    second: {fileID: 2800000, guid: ed27043e1eacd534fb9cb52575bf4848, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PlasticDucksBag_PlasticDuck_bag_Opacity
+    second: {fileID: 2800000, guid: 102c0b13ebf9e4a44aba453050c6a73a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PlasticDucksBag_PlasticDuck_bag_Roughness
+    second: {fileID: 2800000, guid: 3b94f05c1793b244a8b3335417fd2aef, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
