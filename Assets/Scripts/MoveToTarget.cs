@@ -1,7 +1,7 @@
 using UnityEngine;
 
-public class MoveToTarget : MonoBehaviour
-{
+public class MoveToTarget : MonoBehaviour {
+
     public Transform initialTarget;         // Objeto B (Primer destino)
     public Transform finalTarget;           // Objeto D (Destino final)
     public GameObject intermediateObject;   // Objeto C (Aparece al alcanzar el segundo destino)
@@ -12,11 +12,11 @@ public class MoveToTarget : MonoBehaviour
     private Transform currentTarget;        // Objetivo actual del movimiento
     private bool hasReachedFirstTarget = false; // Controla si alcanzó el primer destino
 
-    void Start()
-    {
+    public bool IsFinished { get; private set; } = false;
+
+    void Start() {
         // Asegúrate de que el objeto intermedio esté desactivado al inicio
-        if (intermediateObject != null)
-        {
+        if (intermediateObject != null) {
             intermediateObject.SetActive(false);
         }
 
@@ -24,8 +24,7 @@ public class MoveToTarget : MonoBehaviour
         currentTarget = initialTarget;
     }
 
-    void Update()
-    {
+    void Update() {
         // Si no hay un objetivo definido, no hacer nada
         if (currentTarget == null) return;
 
@@ -39,24 +38,21 @@ public class MoveToTarget : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 0.1f);
 
         // Verifica si llegó al objetivo actual
-        if (Vector3.Distance(transform.position, currentTarget.position) <= arrivalDistance)
-        {
-            if (!hasReachedFirstTarget)
-            {
+        if (Vector3.Distance(transform.position, currentTarget.position) <= arrivalDistance) {
+            if (!hasReachedFirstTarget) {
                 // Si alcanzó el primer destino, cambia el objetivo al destino final
                 hasReachedFirstTarget = true;
                 currentTarget = finalTarget;
             }
-            else
-            {
+            else {
                 // Cuando alcanza el destino final
-                if (intermediateObject != null)
-                {
+                if (intermediateObject != null) {
+                    IsFinished = true;
+                    Debug.Log("Animacion terminada");
                     intermediateObject.SetActive(true); // Activa el objeto intermedio
                 }
 
-                if (objectToDisappear != null)
-                {
+                if (objectToDisappear != null) {
                     objectToDisappear.SetActive(false); // Desactiva el objeto que debe desaparecer
                 }
 

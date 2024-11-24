@@ -10,7 +10,7 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         // Obtén todas las fuentes de audio en la escena al inicio
-        audioSources = FindObjectsOfType<AudioSource>();
+        audioSources = FindObjectsByType<AudioSource>(FindObjectsSortMode.InstanceID);
     }
 
     void Update()
