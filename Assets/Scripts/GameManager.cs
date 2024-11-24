@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField]
     private TMP_Text textoTiempo;
-
+    [SerializeField]
+    private TMP_Text textoTiempo2;
     [SerializeField]
     private Canvas menuPausa;
 
@@ -91,6 +92,7 @@ public class GameManager : MonoBehaviour {
         int minutes = Math.DivRem((int)_tiempoRestante, 60, out var seconds);
 
         textoTiempo.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        textoTiempo2.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
 private void Terminar() {
@@ -165,6 +167,10 @@ private void Terminar() {
     public void NextLevel() {
         Time.timeScale = 1f; // Asegúrate de reactivar el tiempo antes de cambiar de escena
         SceneManager.LoadScene("Nivel2"); // Cambia a la escena del menú principal
+    }
+    public void Niveles() {
+        Time.timeScale = 1f; // Asegúrate de reactivar el tiempo antes de cambiar de escena
+        SceneManager.LoadScene("Niveles"); // Cambia a la escena del menú principal
     }
 
     public void QuitGame() {
