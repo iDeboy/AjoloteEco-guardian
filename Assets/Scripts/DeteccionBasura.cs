@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class DeteccionBasura : MonoBehaviour
+[RequireComponent(typeof(LineRenderer))]
+public class DeteccionBasuraConCuerda : MonoBehaviour
 {
     private int _basuraRecogida = 0;
 
@@ -19,6 +20,28 @@ public class DeteccionBasura : MonoBehaviour
     private Transform objetoCercano;
     private GameObject indicadorActual; // Referencia al indicador del objeto cercano
     private float TiempoPrecionado = 0f;
+
+    private LineRenderer lineRenderer; // Referencia al LineRenderer
+
+    public Material lineMaterial; // Asigna el material desde el inspector
+
+    private Vector3 escalaOriginalIndicador; // Para almacenar la escala original del indicador
+
+    private void Start()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.positionCount = 2;
+        lineRenderer.enabled = false;
+
+        if (lineMaterial != null)
+        {
+            lineRenderer.material = lineMaterial;
+        }
+
+        // Configuración de la línea
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+    }
 
     private void DetectarObjetoCercano()
     {
@@ -56,10 +79,28 @@ public class DeteccionBasura : MonoBehaviour
                 indicadorActual = objetoCercano.Find("Indicador")?.gameObject;
                 if (indicadorActual != null)
                 {
+                    escalaOriginalIndicador = indicadorActual.transform.localScale; // Guarda la escala original
                     indicadorActual.SetActive(true);
-                    indicadorActual.transform.localScale = tamañoInicialIndicador; // Reinicia al tamaño configurado
+                    indicadorActual.transform.localScale = Vector3.Scale(escalaOriginalIndicador, tamañoInicialIndicador); // Aplica el tamaño inicial basado en la escala original
                 }
+
+                // Activar la cuerda
+                lineRenderer.enabled = true;
             }
+            else
+            {
+                // Desactivar la cuerda si no hay objeto cercano
+                lineRenderer.enabled = false;
+            }
+        }
+    }
+
+    private void ActualizarCuerda()
+    {
+        if (lineRenderer.enabled && objetoCercano != null)
+        {
+            lineRenderer.SetPosition(0, transform.position); // Punto inicial: jugador
+            lineRenderer.SetPosition(1, objetoCercano.position); // Punto final: objeto cercano
         }
     }
 
@@ -78,6 +119,9 @@ public class DeteccionBasura : MonoBehaviour
             Destroy(objetoCercano.gameObject);
             ++_basuraRecogida;
             Debug.Log($"Basura recogida: {_basuraRecogida}");
+
+            // Desactivar la cuerda
+            lineRenderer.enabled = false;
         }
     }
 
@@ -85,20 +129,20 @@ public class DeteccionBasura : MonoBehaviour
     {
         if (indicadorActual != null)
         {
-            indicadorActual.transform.localScale = tamañoInicialIndicador; // Restaura la escala inicial
+            indicadorActual.transform.localScale = escalaOriginalIndicador; // Restaura la escala original
             indicadorActual.SetActive(false); // Desactiva el indicador
             indicadorActual = null;
         }
     }
 
-    void ReiniciarPrecionado()
+    private void ReiniciarPrecionado()
     {
         TiempoPrecionado = 0f;
 
         // Si hay un indicador activo, restaura su escala
         if (indicadorActual != null)
         {
-            indicadorActual.transform.localScale = tamañoInicialIndicador;
+            indicadorActual.transform.localScale = Vector3.Scale(escalaOriginalIndicador, tamañoInicialIndicador);
         }
     }
 
@@ -113,6 +157,7 @@ public class DeteccionBasura : MonoBehaviour
     private void Update()
     {
         DetectarObjetoCercano();
+        ActualizarCuerda();
 
         if (objetoCercano != null && Input.GetKey(TeclaRecoger))
         {
@@ -122,7 +167,7 @@ public class DeteccionBasura : MonoBehaviour
             if (indicadorActual != null)
             {
                 float progress = 1f - (TiempoPrecionado / TiempoRecoger);
-                indicadorActual.transform.localScale = tamañoInicialIndicador * progress;
+                indicadorActual.transform.localScale = Vector3.Scale(escalaOriginalIndicador, tamañoInicialIndicador * progress);
             }
 
             if (TiempoPrecionado >= TiempoRecoger)

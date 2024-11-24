@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Indicador
       objectReference: {fileID: 0}
+    - target: {fileID: 8036736141303932135, guid: 9d49051248861444ca1790f12bcf4e82, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -178,8 +182,8 @@ SphereCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 4
-  m_Center: {x: 0, y: 4, z: 0}
+  m_Radius: 2
+  m_Center: {x: 0, y: 9, z: 0}
 --- !u!4 &2964752960991124116 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcba5632957d5d84981e0e108eceaf90, type: 3}
