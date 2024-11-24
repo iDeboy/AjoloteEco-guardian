@@ -3,7 +3,14 @@ using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
 public class DeteccionBasuraConCuerda : MonoBehaviour {
+    [SerializeField]
+private Canvas canvasTiempoTerminado;
+
+private GeneradorBasura generadorBasura; // Referencia al script GeneradorBasura
+
     private int _basuraRecogida = 0;
+    [SerializeField]
+private TMP_Text otroTextoPuntos; // Nuevo texto de puntos
 
     [SerializeField]
     private float RangoDeteccion = 10f;
@@ -30,19 +37,30 @@ public class DeteccionBasuraConCuerda : MonoBehaviour {
 
     private Vector3 escalaOriginalIndicador; // Para almacenar la escala original del indicador
 
-    private void Start() {
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.positionCount = 2;
-        lineRenderer.enabled = false;
+    private void Start()
+{
+    lineRenderer = GetComponent<LineRenderer>();
+    lineRenderer.positionCount = 2;
+    lineRenderer.enabled = false;
 
-        if (lineMaterial != null) {
-            lineRenderer.material = lineMaterial;
-        }
-
-        // Configuración de la línea
-        lineRenderer.startWidth = 0.1f;
-        lineRenderer.endWidth = 0.1f;
+    if (lineMaterial != null)
+    {
+        lineRenderer.material = lineMaterial;
     }
+
+    lineRenderer.startWidth = 0.1f;
+    lineRenderer.endWidth = 0.1f;
+
+    // Obtén referencia al script GeneradorBasura
+    generadorBasura = FindObjectOfType<GeneradorBasura>();
+
+    // Asegúrate de que el Canvas esté desactivado inicialmente
+    if (canvasTiempoTerminado != null)
+    {
+        canvasTiempoTerminado.gameObject.SetActive(false);
+    }
+}
+
 
     private void DetectarObjetoCercano() {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, RangoDeteccion);
@@ -96,27 +114,76 @@ public class DeteccionBasuraConCuerda : MonoBehaviour {
         }
     }
 
-    private void Recoger() {
-        if (objetoCercano != null) {
-            Debug.Log($"Objeto recogido: {objetoCercano.name}");
+private void Recoger()
+{
+    if (objetoCercano != null)
+    {
+        Debug.Log($"Objeto recogido: {objetoCercano.name}");
 
-            // Desactiva el indicador antes de destruir el objeto
-            if (indicadorActual != null) {
-                indicadorActual.SetActive(false);
-            }
+        if (indicadorActual != null)
+        {
+            indicadorActual.SetActive(false);
+        }
 
-            puntos += objetoCercano.Puntos;
+        puntos += objetoCercano.Puntos;
+        textoPuntos.text = $"Puntos: {puntos}";
 
-            textoPuntos.text = $"Puntos: {puntos}";
+        if (otroTextoPuntos != null)
+        {
+            otroTextoPuntos.text = $"{puntos}";
+        }
 
-            Destroy(objetoCercano.gameObject);
-            ++_basuraRecogida;
-            Debug.Log($"Basura recogida: {_basuraRecogida}");
+        Destroy(objetoCercano.gameObject);
+        _basuraRecogida++;
 
-            // Desactivar la cuerda
-            lineRenderer.enabled = false;
+        Debug.Log($"Basura recogida: {_basuraRecogida}");
+
+        // Verifica si se han recogido todos los objetos
+        if (_basuraRecogida >= generadorBasura.NumeroObjetosGenerados)
+        {
+            Debug.Log("¡Has recogido todos los objetos!");
+            Terminar();
+        }
+
+        lineRenderer.enabled = false;
+    }
+}
+
+private void Terminar()
+{
+    // Pausar el juego
+    Time.timeScale = 0f;
+
+    // Configurar el cursor para que sea visible y desbloqueado
+    Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
+    Cursor.visible = true; // Hace visible el cursor
+
+    // Activa el Canvas de "Tiempo Terminado"
+    if (canvasTiempoTerminado != null)
+    {
+        canvasTiempoTerminado.gameObject.SetActive(true);
+    }
+
+    // Detener todas las fuentes de audio que se están reproduciendo
+    AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+    foreach (AudioSource audio in audioSources)
+    {
+        if (audio != null && audio.isPlaying)
+        {
+            audio.Stop();
         }
     }
+
+    // Reproducir la música específica del Canvas de "Tiempo Terminado"
+    AudioSource musicaTiempoTerminado = canvasTiempoTerminado.GetComponentInChildren<AudioSource>();
+    if (musicaTiempoTerminado != null)
+    {
+        musicaTiempoTerminado.Play();
+    }
+
+    Debug.Log("¡Se acabó el tiempo!");
+}
+
 
     private void ResetearIndicador() {
         if (indicadorActual != null) {

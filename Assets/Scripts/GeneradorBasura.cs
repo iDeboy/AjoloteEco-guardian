@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class GeneradorBasura : MonoBehaviour
 {
+    public int NumeroObjetosGenerados { get; private set; }
+
     [SerializeField]
     private Terrain Terreno;
 
@@ -86,5 +88,6 @@ public class GeneradorBasura : MonoBehaviour
                 objetosGenerados++;
             }
         }
+        NumeroObjetosGenerados = objetosGenerados; 
     }
 }

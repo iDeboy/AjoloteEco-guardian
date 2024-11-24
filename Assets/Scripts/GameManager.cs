@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour {
     private Canvas menuPausa;
 
     [SerializeField]
+    private Canvas menuTiempoTerminado; // Referencia al Canvas de "Tiempo Terminado"
+    
+    [SerializeField]
     private MoveToTarget moveToTarget;
 
     private bool _isPause;
@@ -35,6 +38,10 @@ public class GameManager : MonoBehaviour {
 
         _tiempoRestante = tiempoTotal;
         audioSources = FindObjectsByType<AudioSource>(FindObjectsSortMode.InstanceID);
+        
+        // Asegurarse de que el Canvas de "Tiempo Terminado" estÃ© desactivado al inicio
+        if (menuTiempoTerminado != null)
+            menuTiempoTerminado.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -65,7 +72,7 @@ public class GameManager : MonoBehaviour {
             if (_tiempoRestante <= 0) {
                 _tiempoRestante = 0;
                 _activo = false; // Detiene el temporizador
-                Terminar(); // Acción al terminar el tiempo
+                Terminar(); // AcciÃ³n al terminar el tiempo
             }
 
             ActualizarTexto(); // Actualiza la interfaz de usuario
@@ -74,9 +81,6 @@ public class GameManager : MonoBehaviour {
         else {
             textoTiempo.gameObject.SetActive(false);
         }
-
-
-
     }
 
     private void ActualizarTexto() {
@@ -89,19 +93,41 @@ public class GameManager : MonoBehaviour {
         textoTiempo.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    private void Terminar() {
-        Time.timeScale = 0f;
-        // Lógica al terminar el tiempo (ejemplo: mostrar Game Over)
-        _terminado = true;
+private void Terminar() {
+    // Pausar el juego
+    Time.timeScale = 0f;
+    _terminado = true;
 
-        Debug.Log("¡Se acabó el tiempo!");
-        // Puedes llamar aquí una función para reiniciar la escena o mostrar un menú.
+    // Detener todas las fuentes de audio que se estÃ¡n reproduciendo
+    foreach (AudioSource audio in audioSources) {
+        if (audio != null && audio.isPlaying) {
+            audio.Stop();
+        }
     }
 
+    // Reproducir la mÃºsica especÃ­fica del Canvas de "Tiempo Terminado"
+    AudioSource musicaTiempoTerminado = menuTiempoTerminado.GetComponentInChildren<AudioSource>();
+    if (musicaTiempoTerminado != null) {
+        musicaTiempoTerminado.Play();
+    }
+
+    // Activa el Canvas de "Tiempo Terminado"
+    if (menuTiempoTerminado != null) {
+        menuTiempoTerminado.gameObject.SetActive(true);
+    }
+
+    // Configurar el cursor para que sea visible y desbloqueado
+    Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
+    Cursor.visible = true; // Hace visible el cursor
+
+    Debug.Log("Â¡Se acabÃ³ el tiempo!");
+}
+
+
     public void Resume() {
-        menuPausa.gameObject.SetActive(false); // Oculta el menú de pausa
+        menuPausa.gameObject.SetActive(false); // Oculta el menÃº de pausa
         Time.timeScale = 1f;          // Reactiva el tiempo del juego
-        _isPause = false;             // Indica que el juego ya no está en pausa
+        _isPause = false;             // Indica que el juego ya no estÃ¡ en pausa
 
         // Reactiva las fuentes de audio
         foreach (AudioSource audio in audioSources) {
@@ -116,9 +142,9 @@ public class GameManager : MonoBehaviour {
     }
 
     void Pause() {
-        menuPausa.gameObject.SetActive(true);  // Muestra el menú de pausa
+        menuPausa.gameObject.SetActive(true);  // Muestra el menÃº de pausa
         Time.timeScale = 0f;          // Detiene el tiempo del juego
-        _isPause = true;              // Indica que el juego está en pausa
+        _isPause = true;              // Indica que el juego estÃ¡ en pausa
 
         // Pausa todas las fuentes de audio
         foreach (AudioSource audio in audioSources) {
@@ -133,8 +159,12 @@ public class GameManager : MonoBehaviour {
     }
 
     public void LoadMainMenu() {
-        Time.timeScale = 1f; // Asegúrate de reactivar el tiempo antes de cambiar de escena
-        SceneManager.LoadScene("Inicio"); // Cambia a la escena del menú principal
+        Time.timeScale = 1f; // AsegÃºrate de reactivar el tiempo antes de cambiar de escena
+        SceneManager.LoadScene("Inicio"); // Cambia a la escena del menÃº principal
+    }
+    public void NextLevel() {
+        Time.timeScale = 1f; // AsegÃºrate de reactivar el tiempo antes de cambiar de escena
+        SceneManager.LoadScene("Nivel2"); // Cambia a la escena del menÃº principal
     }
 
     public void QuitGame() {

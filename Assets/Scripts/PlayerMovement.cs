@@ -32,21 +32,22 @@ public class PlayerMovement : MonoBehaviour
         Rotate();
     }
 
-    void Move()
-    {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+void Move()
+{
+    float moveHorizontal = Input.GetAxis("Horizontal");
+    float moveVertical = Input.GetAxis("Vertical");
 
-        // Determina si el jugador está corriendo o caminando
-        float speed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
+    // Determina si el jugador está corriendo o caminando
+    float speed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
 
-        // Mueve el jugador en la dirección en que está mirando
-        Vector3 movement = (transform.forward * moveVertical + transform.right * moveHorizontal) * speed * Time.deltaTime;
-        
-        // Mueve suavemente al jugador con Lerp
-        Vector3 targetPosition = transform.position + movement;
-        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 10f); // Ajusta el 10f para suavizar más o menos
-    }
+    // Calcula el movimiento en la dirección que está mirando el jugador
+    Vector3 movement = (transform.forward * moveVertical + transform.right * moveHorizontal) * speed;
+
+    // Aplica el movimiento al Rigidbody (actualiza la velocidad directamente)
+    rb.linearVelocity = new Vector3(movement.x, rb.linearVelocity.y, movement.z);
+}
+
+
 
     void Jump()
     {

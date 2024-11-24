@@ -149,14 +149,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3843565131013830894}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d0f6077740d5284f9e022a4d79ab041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterLevel: 3
-  waterDensity: 4
-  waterDrag: 5
+  waterLevel: 2
+  waterDensity: 5
+  waterDrag: 20
 --- !u!23 &5619287408878302835
 MeshRenderer:
   m_ObjectHideFlags: 0
