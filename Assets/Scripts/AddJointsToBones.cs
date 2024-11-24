@@ -1,18 +1,14 @@
 using UnityEngine;
 
-public class AddJointsToBones : MonoBehaviour
-{
+public class AddJointsToBones : MonoBehaviour {
     public Transform rootBone;
 
-    void Start()
-    {
+    void Start() {
         AddJoints(rootBone);
     }
 
-    void AddJoints(Transform bone)
-    {
-        foreach (Transform child in bone)
-        {
+    void AddJoints(Transform bone) {
+        foreach (Transform child in bone) {
             ConfigurableJoint joint = child.gameObject.AddComponent<ConfigurableJoint>();
             joint.connectedBody = bone.GetComponent<Rigidbody>();
 
