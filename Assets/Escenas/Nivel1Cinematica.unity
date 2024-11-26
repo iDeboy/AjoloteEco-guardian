@@ -705,7 +705,7 @@ MonoBehaviour:
   video: {fileID: 228596978}
   escena: Nivel1
   tiempoSaltar: 2
-  teclaSaltar: 27
+  teclaSaltar: 32
 --- !u!4 &1510007128
 Transform:
   m_ObjectHideFlags: 0

@@ -892,11 +892,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c8f266b1ba2a56f43a6e74499e65af3b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.24
+      value: 8.08
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c8f266b1ba2a56f43a6e74499e65af3b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 450.5
+      value: 431.12
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c8f266b1ba2a56f43a6e74499e65af3b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -979,7 +979,7 @@ MonoBehaviour:
   finalTarget: {fileID: 353792562}
   intermediateObject: {fileID: 1816280859}
   objectToDisappear: {fileID: 1843735496}
-  speed: 10
+  speed: 5
   arrivalDistance: 0.1
 --- !u!4 &572533390 stripped
 Transform:
