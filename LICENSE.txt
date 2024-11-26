@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2024 iDeboy
+Copyright (c) 2024 Honorio Acosta Ruiz & Félix Jesús García Hernández & Antonio de Jesús Pérez Velásquez
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
