@@ -18,7 +18,7 @@ void Update()
     bool isMoving = horizontalVelocity.magnitude > 0.1f;
 
     // Depuración
-    Debug.Log($"Velocity: {velocity}, HorizontalVelocity: {horizontalVelocity}, IsMoving: {isMoving}");
+    //Debug.Log($"Velocity: {velocity}, HorizontalVelocity: {horizontalVelocity}, IsMoving: {isMoving}");
 
     // Controla la animación
     if (isMoving)

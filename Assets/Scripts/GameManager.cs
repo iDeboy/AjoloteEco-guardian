@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private TMP_Text textoTiempo2;
     [SerializeField]
-    private Canvas menuPausa;
+    public Canvas menuPausa;
 
     [SerializeField]
     private Canvas menuTiempoTerminado; // Referencia al Canvas de "Tiempo Terminado"
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private MoveToTarget moveToTarget;
 
-    private bool _isPause;
+    public bool _isPause;
     private AudioSource[] audioSources;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -127,21 +127,27 @@ private void Terminar() {
 
 
     public void Resume() {
-        menuPausa.gameObject.SetActive(false); // Oculta el menú de pausa
-        Time.timeScale = 1f;          // Reactiva el tiempo del juego
-        _isPause = false;             // Indica que el juego ya no está en pausa
+    Time.timeScale = 1f; 
+    _isPause = false; 
 
-        // Reactiva las fuentes de audio
-        foreach (AudioSource audio in audioSources) {
-            if (audio != null && audio.isPlaying == false) {
-                audio.Play();
-            }
+    // Reactiva el audio
+    foreach (AudioSource audio in audioSources) {
+        if (audio != null && !audio.isPlaying) {
+            audio.Play();
         }
-
-        // Bloquea y oculta el cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
+
+    // Bloquea y oculta el cursor
+    Cursor.lockState = CursorLockMode.Locked;
+    Cursor.visible = false;
+
+    // Retrasar la desactivación del menú 0.1 segundos
+    Invoke(nameof(DisableMenu), 0.1f);
+}
+
+void DisableMenu() {
+    menuPausa.gameObject.SetActive(false);
+}
 
     void Pause() {
         menuPausa.gameObject.SetActive(true);  // Muestra el menú de pausa
