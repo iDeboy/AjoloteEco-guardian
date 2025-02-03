@@ -30,7 +30,8 @@ public class GeneradorBasura : MonoBehaviour
         terrenoXMax = terrenoXMin + Terreno.terrainData.size.x;
         terrenoZMin = Terreno.transform.position.z;
         terrenoZMax = terrenoZMin + Terreno.terrainData.size.z;
-
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = -1;
         GenerarObjetos();
     }
 
