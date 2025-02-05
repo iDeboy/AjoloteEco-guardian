@@ -119,8 +119,8 @@ private void Terminar() {
     }
 
     // Configurar el cursor para que sea visible y desbloqueado
-    Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
-    Cursor.visible = true; // Hace visible el cursor
+    //Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
+    //Cursor.visible = true; // Hace visible el cursor
 
     Debug.Log("¡Se acabó el tiempo!");
 }
@@ -138,8 +138,8 @@ private void Terminar() {
     }
 
     // Bloquea y oculta el cursor
-    Cursor.lockState = CursorLockMode.Locked;
-    Cursor.visible = false;
+    //Cursor.lockState = CursorLockMode.Locked;
+    //Cursor.visible = false;
 
     // Retrasar la desactivación del menú 0.1 segundos
     Invoke(nameof(DisableMenu), 0.1f);
@@ -162,8 +162,8 @@ void DisableMenu() {
         }
 
         // Desbloquea y muestra el cursor
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
     }
 
     public void LoadMainMenu() {

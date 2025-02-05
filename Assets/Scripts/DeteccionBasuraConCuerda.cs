@@ -15,7 +15,7 @@ private TMP_Text otroTextoPuntos; // Nuevo texto de puntos
     [SerializeField]
     private float RangoDeteccion = 10f;
     [SerializeField]
-    private KeyCode TeclaRecoger = KeyCode.E;
+    private KeyCode TeclaRecoger = KeyCode.Space;
     [SerializeField]
     private float TiempoRecoger = 2f;
     [SerializeField]
@@ -213,7 +213,7 @@ private void Terminar()
         DetectarObjetoCercano();
         ActualizarCuerda();
 
-        if (objetoCercano != null && Input.GetKey(TeclaRecoger)) {
+        if (objetoCercano != null && SimpleInput.GetButton("Jump")) {
             TiempoPrecionado += Time.deltaTime;
 
             // Reduce el tamaño del indicador según el progreso de la recolección
@@ -227,7 +227,7 @@ private void Terminar()
                 ReiniciarPrecionado();
             }
         }
-        else if (Input.GetKeyUp(TeclaRecoger) || objetoCercano == null) {
+        else if (SimpleInput.GetButton("Jump")|| objetoCercano == null) {
             ReiniciarPrecionado();
         }
     }
