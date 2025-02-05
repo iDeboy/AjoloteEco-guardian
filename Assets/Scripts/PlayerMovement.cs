@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;  // Evita que el Rigidbody gire.
         
         // Oculta el cursor y lo bloquea al centro de la pantalla
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         // Referencia del objeto principal del jugador para la rotación
         playerBody = transform;
@@ -34,8 +34,8 @@ public class PlayerMovement : MonoBehaviour
 
 void Move()
 {
-    float moveHorizontal = Input.GetAxis("Horizontal");
-    float moveVertical = Input.GetAxis("Vertical");
+    float moveHorizontal = SimpleInput.GetAxis("Horizontal");
+    float moveVertical = SimpleInput.GetAxis("Vertical");
 
     // Determina si el jugador está corriendo o caminando
     float speed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
@@ -61,11 +61,11 @@ void Move()
 void Rotate()
 {
     // No procesa la rotación si el cursor está desbloqueado (el juego está en pausa)
-    if (Cursor.lockState != CursorLockMode.Locked)
-        return;
+    //if (Cursor.lockState != CursorLockMode.Locked)
+      //  return;
 
     // Rotación en base a la entrada del mouse
-    float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+    float mouseX = SimpleInput.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
 
     // Rota el objeto jugador en el eje Y para girar a la derecha o izquierda
     float targetRotationY = playerBody.eulerAngles.y + mouseX;

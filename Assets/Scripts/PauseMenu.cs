@@ -45,8 +45,8 @@ public class PauseMenu : MonoBehaviour
         }
 
         // Bloquea y oculta el cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     void Pause()
